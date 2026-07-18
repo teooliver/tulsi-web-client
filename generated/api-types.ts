@@ -5,6 +5,7 @@
  * Tulsi project management API
  * OpenAPI spec version: 0.1.0
  */
+import { customFetch } from '../src/lib/custom-fetch.ts';
 export interface User {
   created_at: string;
   email: string;
@@ -289,21 +290,14 @@ export const getLoginUrl = () => {
 
 export const login = async (loginRequest: LoginRequest, options?: RequestInit): Promise<loginResponse> => {
 
-  const res = await fetch(getLoginUrl(),
+  return customFetch<loginResponse>(getLoginUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(loginRequest)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: loginResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as loginResponse
-}
+);}
 
 
 
@@ -336,21 +330,14 @@ export const getMeUrl = () => {
 
 export const me = async ( options?: RequestInit): Promise<meResponse> => {
 
-  const res = await fetch(getMeUrl(),
+  return customFetch<meResponse>(getMeUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: meResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as meResponse
-}
+);}
 
 
 
@@ -388,21 +375,14 @@ export const getRegisterUrl = () => {
 
 export const register = async (registerRequest: RegisterRequest, options?: RequestInit): Promise<registerResponse> => {
 
-  const res = await fetch(getRegisterUrl(),
+  return customFetch<registerResponse>(getRegisterUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(registerRequest)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: registerResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as registerResponse
-}
+);}
 
 
 
@@ -435,21 +415,14 @@ export const getListBoardsUrl = () => {
 
 export const listBoards = async ( options?: RequestInit): Promise<listBoardsResponse> => {
 
-  const res = await fetch(getListBoardsUrl(),
+  return customFetch<listBoardsResponse>(getListBoardsUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listBoardsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listBoardsResponse
-}
+);}
 
 
 
@@ -482,21 +455,14 @@ export const getCreateBoardUrl = () => {
 
 export const createBoard = async (createBoard: CreateBoard, options?: RequestInit): Promise<createBoardResponse> => {
 
-  const res = await fetch(getCreateBoardUrl(),
+  return customFetch<createBoardResponse>(getCreateBoardUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createBoard)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createBoardResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createBoardResponse
-}
+);}
 
 
 
@@ -529,21 +495,14 @@ export const getListBoardColumnsUrl = (boardId: string,) => {
 
 export const listBoardColumns = async (boardId: string, options?: RequestInit): Promise<listBoardColumnsResponse> => {
 
-  const res = await fetch(getListBoardColumnsUrl(boardId),
+  return customFetch<listBoardColumnsResponse>(getListBoardColumnsUrl(boardId),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listBoardColumnsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listBoardColumnsResponse
-}
+);}
 
 
 
@@ -577,21 +536,14 @@ export const getCreateColumnUrl = (boardId: string,) => {
 export const createColumn = async (boardId: string,
     createColumn: CreateColumn, options?: RequestInit): Promise<createColumnResponse> => {
 
-  const res = await fetch(getCreateColumnUrl(boardId),
+  return customFetch<createColumnResponse>(getCreateColumnUrl(boardId),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createColumn)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createColumnResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createColumnResponse
-}
+);}
 
 
 
@@ -631,21 +583,14 @@ export const getGetColumnUrl = (boardId: string,
 export const getColumn = async (boardId: string,
     columnId: string, options?: RequestInit): Promise<getColumnResponse> => {
 
-  const res = await fetch(getGetColumnUrl(boardId,columnId),
+  return customFetch<getColumnResponse>(getGetColumnUrl(boardId,columnId),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getColumnResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getColumnResponse
-}
+);}
 
 
 
@@ -686,21 +631,14 @@ export const updateColumn = async (boardId: string,
     columnId: string,
     updateColumn: UpdateColumn, options?: RequestInit): Promise<updateColumnResponse> => {
 
-  const res = await fetch(getUpdateColumnUrl(boardId,columnId),
+  return customFetch<updateColumnResponse>(getUpdateColumnUrl(boardId,columnId),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateColumn)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updateColumnResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateColumnResponse
-}
+);}
 
 
 
@@ -740,21 +678,14 @@ export const getDeleteColumnUrl = (boardId: string,
 export const deleteColumn = async (boardId: string,
     columnId: string, options?: RequestInit): Promise<deleteColumnResponse> => {
 
-  const res = await fetch(getDeleteColumnUrl(boardId,columnId),
+  return customFetch<deleteColumnResponse>(getDeleteColumnUrl(boardId,columnId),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deleteColumnResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteColumnResponse
-}
+);}
 
 
 
@@ -794,21 +725,14 @@ export const getListColumnTasksUrl = (boardId: string,
 export const listColumnTasks = async (boardId: string,
     columnId: string, options?: RequestInit): Promise<listColumnTasksResponse> => {
 
-  const res = await fetch(getListColumnTasksUrl(boardId,columnId),
+  return customFetch<listColumnTasksResponse>(getListColumnTasksUrl(boardId,columnId),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listColumnTasksResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listColumnTasksResponse
-}
+);}
 
 
 
@@ -846,21 +770,14 @@ export const getGetBoardUrl = (id: string,) => {
 
 export const getBoard = async (id: string, options?: RequestInit): Promise<getBoardResponse> => {
 
-  const res = await fetch(getGetBoardUrl(id),
+  return customFetch<getBoardResponse>(getGetBoardUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getBoardResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getBoardResponse
-}
+);}
 
 
 
@@ -899,21 +816,14 @@ export const getUpdateBoardUrl = (id: string,) => {
 export const updateBoard = async (id: string,
     updateBoard: UpdateBoard, options?: RequestInit): Promise<updateBoardResponse> => {
 
-  const res = await fetch(getUpdateBoardUrl(id),
+  return customFetch<updateBoardResponse>(getUpdateBoardUrl(id),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateBoard)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updateBoardResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateBoardResponse
-}
+);}
 
 
 
@@ -951,21 +861,14 @@ export const getDeleteBoardUrl = (id: string,) => {
 
 export const deleteBoard = async (id: string, options?: RequestInit): Promise<deleteBoardResponse> => {
 
-  const res = await fetch(getDeleteBoardUrl(id),
+  return customFetch<deleteBoardResponse>(getDeleteBoardUrl(id),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deleteBoardResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteBoardResponse
-}
+);}
 
 
 
@@ -1003,21 +906,14 @@ export const getListBoardProjectsUrl = (id: string,) => {
 
 export const listBoardProjects = async (id: string, options?: RequestInit): Promise<listBoardProjectsResponse> => {
 
-  const res = await fetch(getListBoardProjectsUrl(id),
+  return customFetch<listBoardProjectsResponse>(getListBoardProjectsUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listBoardProjectsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listBoardProjectsResponse
-}
+);}
 
 
 
@@ -1050,21 +946,14 @@ export const getListLabelsUrl = () => {
 
 export const listLabels = async ( options?: RequestInit): Promise<listLabelsResponse> => {
 
-  const res = await fetch(getListLabelsUrl(),
+  return customFetch<listLabelsResponse>(getListLabelsUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listLabelsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listLabelsResponse
-}
+);}
 
 
 
@@ -1102,21 +991,14 @@ export const getCreateLabelUrl = () => {
 
 export const createLabel = async (createLabel: CreateLabel, options?: RequestInit): Promise<createLabelResponse> => {
 
-  const res = await fetch(getCreateLabelUrl(),
+  return customFetch<createLabelResponse>(getCreateLabelUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createLabel)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createLabelResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createLabelResponse
-}
+);}
 
 
 
@@ -1154,21 +1036,14 @@ export const getGetLabelUrl = (id: string,) => {
 
 export const getLabel = async (id: string, options?: RequestInit): Promise<getLabelResponse> => {
 
-  const res = await fetch(getGetLabelUrl(id),
+  return customFetch<getLabelResponse>(getGetLabelUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getLabelResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getLabelResponse
-}
+);}
 
 
 
@@ -1212,21 +1087,14 @@ export const getUpdateLabelUrl = (id: string,) => {
 export const updateLabel = async (id: string,
     updateLabel: UpdateLabel, options?: RequestInit): Promise<updateLabelResponse> => {
 
-  const res = await fetch(getUpdateLabelUrl(id),
+  return customFetch<updateLabelResponse>(getUpdateLabelUrl(id),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateLabel)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updateLabelResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateLabelResponse
-}
+);}
 
 
 
@@ -1264,21 +1132,14 @@ export const getDeleteLabelUrl = (id: string,) => {
 
 export const deleteLabel = async (id: string, options?: RequestInit): Promise<deleteLabelResponse> => {
 
-  const res = await fetch(getDeleteLabelUrl(id),
+  return customFetch<deleteLabelResponse>(getDeleteLabelUrl(id),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deleteLabelResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteLabelResponse
-}
+);}
 
 
 
@@ -1311,21 +1172,14 @@ export const getListPlansUrl = () => {
 
 export const listPlans = async ( options?: RequestInit): Promise<listPlansResponse> => {
 
-  const res = await fetch(getListPlansUrl(),
+  return customFetch<listPlansResponse>(getListPlansUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listPlansResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listPlansResponse
-}
+);}
 
 
 
@@ -1358,21 +1212,14 @@ export const getCreatePlanUrl = () => {
 
 export const createPlan = async (createPlan: CreatePlan, options?: RequestInit): Promise<createPlanResponse> => {
 
-  const res = await fetch(getCreatePlanUrl(),
+  return customFetch<createPlanResponse>(getCreatePlanUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createPlan)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createPlanResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createPlanResponse
-}
+);}
 
 
 
@@ -1410,21 +1257,14 @@ export const getGetPlanUrl = (id: string,) => {
 
 export const getPlan = async (id: string, options?: RequestInit): Promise<getPlanResponse> => {
 
-  const res = await fetch(getGetPlanUrl(id),
+  return customFetch<getPlanResponse>(getGetPlanUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getPlanResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getPlanResponse
-}
+);}
 
 
 
@@ -1463,21 +1303,14 @@ export const getUpdatePlanUrl = (id: string,) => {
 export const updatePlan = async (id: string,
     updatePlan: UpdatePlan, options?: RequestInit): Promise<updatePlanResponse> => {
 
-  const res = await fetch(getUpdatePlanUrl(id),
+  return customFetch<updatePlanResponse>(getUpdatePlanUrl(id),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updatePlan)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updatePlanResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updatePlanResponse
-}
+);}
 
 
 
@@ -1515,21 +1348,14 @@ export const getDeletePlanUrl = (id: string,) => {
 
 export const deletePlan = async (id: string, options?: RequestInit): Promise<deletePlanResponse> => {
 
-  const res = await fetch(getDeletePlanUrl(id),
+  return customFetch<deletePlanResponse>(getDeletePlanUrl(id),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deletePlanResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deletePlanResponse
-}
+);}
 
 
 
@@ -1567,21 +1393,14 @@ export const getExecutePlanUrl = (id: string,) => {
 
 export const executePlan = async (id: string, options?: RequestInit): Promise<executePlanResponse> => {
 
-  const res = await fetch(getExecutePlanUrl(id),
+  return customFetch<executePlanResponse>(getExecutePlanUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: executePlanResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as executePlanResponse
-}
+);}
 
 
 
@@ -1614,21 +1433,14 @@ export const getListProjectsUrl = () => {
 
 export const listProjects = async ( options?: RequestInit): Promise<listProjectsResponse> => {
 
-  const res = await fetch(getListProjectsUrl(),
+  return customFetch<listProjectsResponse>(getListProjectsUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listProjectsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listProjectsResponse
-}
+);}
 
 
 
@@ -1661,21 +1473,14 @@ export const getCreateProjectUrl = () => {
 
 export const createProject = async (createProject: CreateProject, options?: RequestInit): Promise<createProjectResponse> => {
 
-  const res = await fetch(getCreateProjectUrl(),
+  return customFetch<createProjectResponse>(getCreateProjectUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createProject)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createProjectResponse
-}
+);}
 
 
 
@@ -1713,21 +1518,14 @@ export const getGetProjectUrl = (id: string,) => {
 
 export const getProject = async (id: string, options?: RequestInit): Promise<getProjectResponse> => {
 
-  const res = await fetch(getGetProjectUrl(id),
+  return customFetch<getProjectResponse>(getGetProjectUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getProjectResponse
-}
+);}
 
 
 
@@ -1766,21 +1564,14 @@ export const getUpdateProjectUrl = (id: string,) => {
 export const updateProject = async (id: string,
     updateProject: UpdateProject, options?: RequestInit): Promise<updateProjectResponse> => {
 
-  const res = await fetch(getUpdateProjectUrl(id),
+  return customFetch<updateProjectResponse>(getUpdateProjectUrl(id),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateProject)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updateProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateProjectResponse
-}
+);}
 
 
 
@@ -1818,21 +1609,14 @@ export const getDeleteProjectUrl = (id: string,) => {
 
 export const deleteProject = async (id: string, options?: RequestInit): Promise<deleteProjectResponse> => {
 
-  const res = await fetch(getDeleteProjectUrl(id),
+  return customFetch<deleteProjectResponse>(getDeleteProjectUrl(id),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deleteProjectResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteProjectResponse
-}
+);}
 
 
 
@@ -1870,21 +1654,14 @@ export const getListProjectTasksUrl = (id: string,) => {
 
 export const listProjectTasks = async (id: string, options?: RequestInit): Promise<listProjectTasksResponse> => {
 
-  const res = await fetch(getListProjectTasksUrl(id),
+  return customFetch<listProjectTasksResponse>(getListProjectTasksUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listProjectTasksResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listProjectTasksResponse
-}
+);}
 
 
 
@@ -1917,21 +1694,14 @@ export const getListTasksUrl = () => {
 
 export const listTasks = async ( options?: RequestInit): Promise<listTasksResponse> => {
 
-  const res = await fetch(getListTasksUrl(),
+  return customFetch<listTasksResponse>(getListTasksUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listTasksResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listTasksResponse
-}
+);}
 
 
 
@@ -1964,21 +1734,14 @@ export const getCreateTaskUrl = () => {
 
 export const createTask = async (createTask: CreateTask, options?: RequestInit): Promise<createTaskResponse> => {
 
-  const res = await fetch(getCreateTaskUrl(),
+  return customFetch<createTaskResponse>(getCreateTaskUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createTask)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createTaskResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createTaskResponse
-}
+);}
 
 
 
@@ -2016,21 +1779,14 @@ export const getGetTaskUrl = (id: string,) => {
 
 export const getTask = async (id: string, options?: RequestInit): Promise<getTaskResponse> => {
 
-  const res = await fetch(getGetTaskUrl(id),
+  return customFetch<getTaskResponse>(getGetTaskUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getTaskResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getTaskResponse
-}
+);}
 
 
 
@@ -2069,21 +1825,14 @@ export const getUpdateTaskUrl = (id: string,) => {
 export const updateTask = async (id: string,
     updateTask: UpdateTask, options?: RequestInit): Promise<updateTaskResponse> => {
 
-  const res = await fetch(getUpdateTaskUrl(id),
+  return customFetch<updateTaskResponse>(getUpdateTaskUrl(id),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateTask)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updateTaskResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateTaskResponse
-}
+);}
 
 
 
@@ -2121,21 +1870,14 @@ export const getDeleteTaskUrl = (id: string,) => {
 
 export const deleteTask = async (id: string, options?: RequestInit): Promise<deleteTaskResponse> => {
 
-  const res = await fetch(getDeleteTaskUrl(id),
+  return customFetch<deleteTaskResponse>(getDeleteTaskUrl(id),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deleteTaskResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteTaskResponse
-}
+);}
 
 
 
@@ -2177,21 +1919,14 @@ export const getGetTaskHistoryUrl = (id: string,
 export const getTaskHistory = async (id: string,
     params?: GetTaskHistoryParams, options?: RequestInit): Promise<getTaskHistoryResponse> => {
 
-  const res = await fetch(getGetTaskHistoryUrl(id,params),
+  return customFetch<getTaskHistoryResponse>(getGetTaskHistoryUrl(id,params),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getTaskHistoryResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getTaskHistoryResponse
-}
+);}
 
 
 
@@ -2224,21 +1959,14 @@ export const getListTaskLabelsUrl = (taskId: string,) => {
 
 export const listTaskLabels = async (taskId: string, options?: RequestInit): Promise<listTaskLabelsResponse> => {
 
-  const res = await fetch(getListTaskLabelsUrl(taskId),
+  return customFetch<listTaskLabelsResponse>(getListTaskLabelsUrl(taskId),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listTaskLabelsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listTaskLabelsResponse
-}
+);}
 
 
 
@@ -2278,21 +2006,14 @@ export const getAttachLabelToTaskUrl = (taskId: string,
 export const attachLabelToTask = async (taskId: string,
     labelId: string, options?: RequestInit): Promise<attachLabelToTaskResponse> => {
 
-  const res = await fetch(getAttachLabelToTaskUrl(taskId,labelId),
+  return customFetch<attachLabelToTaskResponse>(getAttachLabelToTaskUrl(taskId,labelId),
   {
     ...options,
     method: 'POST'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: attachLabelToTaskResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as attachLabelToTaskResponse
-}
+);}
 
 
 
@@ -2332,21 +2053,14 @@ export const getDetachLabelFromTaskUrl = (taskId: string,
 export const detachLabelFromTask = async (taskId: string,
     labelId: string, options?: RequestInit): Promise<detachLabelFromTaskResponse> => {
 
-  const res = await fetch(getDetachLabelFromTaskUrl(taskId,labelId),
+  return customFetch<detachLabelFromTaskResponse>(getDetachLabelFromTaskUrl(taskId,labelId),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: detachLabelFromTaskResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as detachLabelFromTaskResponse
-}
+);}
 
 
 
@@ -2385,21 +2099,14 @@ export const getMoveTaskToColumnUrl = (taskId: string,) => {
 export const moveTaskToColumn = async (taskId: string,
     moveTask: MoveTask, options?: RequestInit): Promise<moveTaskToColumnResponse> => {
 
-  const res = await fetch(getMoveTaskToColumnUrl(taskId),
+  return customFetch<moveTaskToColumnResponse>(getMoveTaskToColumnUrl(taskId),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(moveTask)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: moveTaskToColumnResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as moveTaskToColumnResponse
-}
+);}
 
 
 
@@ -2432,21 +2139,14 @@ export const getListUsersUrl = () => {
 
 export const listUsers = async ( options?: RequestInit): Promise<listUsersResponse> => {
 
-  const res = await fetch(getListUsersUrl(),
+  return customFetch<listUsersResponse>(getListUsersUrl(),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listUsersResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listUsersResponse
-}
+);}
 
 
 
@@ -2479,21 +2179,14 @@ export const getCreateUserUrl = () => {
 
 export const createUser = async (createUser: CreateUser, options?: RequestInit): Promise<createUserResponse> => {
 
-  const res = await fetch(getCreateUserUrl(),
+  return customFetch<createUserResponse>(getCreateUserUrl(),
   {
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(createUser)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: createUserResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as createUserResponse
-}
+);}
 
 
 
@@ -2531,21 +2224,14 @@ export const getGetUserUrl = (id: string,) => {
 
 export const getUser = async (id: string, options?: RequestInit): Promise<getUserResponse> => {
 
-  const res = await fetch(getGetUserUrl(id),
+  return customFetch<getUserResponse>(getGetUserUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: getUserResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as getUserResponse
-}
+);}
 
 
 
@@ -2584,21 +2270,14 @@ export const getUpdateUserUrl = (id: string,) => {
 export const updateUser = async (id: string,
     updateUser: UpdateUser, options?: RequestInit): Promise<updateUserResponse> => {
 
-  const res = await fetch(getUpdateUserUrl(id),
+  return customFetch<updateUserResponse>(getUpdateUserUrl(id),
   {
     ...options,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
     body: JSON.stringify(updateUser)
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: updateUserResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as updateUserResponse
-}
+);}
 
 
 
@@ -2636,21 +2315,14 @@ export const getDeleteUserUrl = (id: string,) => {
 
 export const deleteUser = async (id: string, options?: RequestInit): Promise<deleteUserResponse> => {
 
-  const res = await fetch(getDeleteUserUrl(id),
+  return customFetch<deleteUserResponse>(getDeleteUserUrl(id),
   {
     ...options,
     method: 'DELETE'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: deleteUserResponse['data'] = body ? JSON.parse(body) : undefined
-  return { data, status: res.status, headers: res.headers } as deleteUserResponse
-}
+);}
 
 
 
@@ -2688,18 +2360,11 @@ export const getListUserTasksUrl = (id: string,) => {
 
 export const listUserTasks = async (id: string, options?: RequestInit): Promise<listUserTasksResponse> => {
 
-  const res = await fetch(getListUserTasksUrl(id),
+  return customFetch<listUserTasksResponse>(getListUserTasksUrl(id),
   {
     ...options,
     method: 'GET'
 
 
   }
-)
-
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-
-  const data: listUserTasksResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as listUserTasksResponse
-}
+);}

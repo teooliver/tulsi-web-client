@@ -9,6 +9,12 @@ export default defineConfig({
     output: {
       target: './generated/api-types.ts',
       client: 'fetch',
+      override: {
+        mutator: {
+          path: './src/lib/custom-fetch.ts',
+          name: 'customFetch',
+        },
+      },
     },
   },
 })
