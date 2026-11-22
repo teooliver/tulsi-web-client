@@ -97,6 +97,11 @@ there. Field errors come from `field.state.meta.errors[0]?.message`.
 
 ## Conventions
 
+- Use the domain vocabulary in `../../tulsi-home/GLOSSARY.md` (the Tulsi Home
+  Repo, checked out beside this repo's parent folder; if you cloned this repo
+  alone, read it at https://github.com/teooliver/tulsi-home/blob/main/GLOSSARY.md).
+  Name things with its canonical terms in code, docs and responses, and avoid
+  the synonyms it lists.
 - New routes: add a file under `src/routes/`, then run `npm run dev` (or build)
   to regenerate `routeTree.gen.ts` — it's generated, don't edit it manually.
 - Reuse `src/components/storybook` primitives; match their Tailwind class style
