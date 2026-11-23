@@ -10,7 +10,7 @@ on upgrade. This file is ours: project-specific notes go here, never there.
 `FOLDKIT.md` reads the line below to decide whether it has already offered to
 vendor the Foldkit source. Leave it in place.
 
-subtree_prompted: false
+subtree_prompted: true
 
 ## Stack
 
