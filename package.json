@@ -1,0 +1,46 @@
+{
+  "name": "tulsi-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.23.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "pnpm css-types && vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "oxlint src && effect-tsgo patch --no-typescript --oxlint && oxlint --config .oxlintrc.effect.json --deny-warnings src",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "css-types": "tcm src -p \"**/*.module.css\" -s",
+    "css-types:watch": "tcm src -p \"**/*.module.css\" -w",
+    "css-types:check": "tcm src -p \"**/*.module.css\" -l",
+    "typecheck": "tsc --noEmit",
+    "check": "pnpm format:check && pnpm css-types:check && pnpm lint && pnpm typecheck && pnpm test"
+  },
+  "dependencies": {
+    "@effect/platform-browser": "4.1.0",
+    "@foldkit/ui": "0.170.0",
+    "effect": "4.1.0",
+    "foldkit": "0.170.0"
+  },
+  "devDependencies": {
+    "@effect/tsgo": "0.50.0",
+    "@foldkit/devtools": "0.170.0",
+    "@foldkit/devtools-mcp": "0.26.0",
+    "@foldkit/oxlint-plugin": "0.15.4",
+    "@foldkit/vite-plugin": "0.29.0",
+    "happy-dom": "^20.14.5",
+    "oxfmt": "^0.66.0",
+    "oxlint": "1.85.0",
+    "oxlint-tsgolint": "7.0.2003",
+    "typed-css-modules": "^0.9.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}
