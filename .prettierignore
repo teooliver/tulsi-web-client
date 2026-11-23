@@ -1,1 +1,4 @@
+# Read by oxfmt (it follows Prettier's ignore-file convention); Prettier is not used.
+# The vendored Foldkit subtree has its own .oxfmtrc.jsonc, which makes oxfmt
+# treat it as a separate root, so ignorePatterns in .oxfmtrc.json cannot skip it.
 repos/
