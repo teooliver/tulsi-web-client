@@ -2,3 +2,4 @@
 # The vendored Foldkit subtree has its own .oxfmtrc.jsonc, which makes oxfmt
 # treat it as a separate root, so ignorePatterns in .oxfmtrc.json cannot skip it.
 repos/
+src/api/generated.ts
