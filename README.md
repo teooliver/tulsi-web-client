@@ -13,4 +13,8 @@ pnpm install
 pnpm dev
 ```
 
+The app always runs on `http://localhost:5173` (`pnpm dev` and `pnpm preview`
+both fail if the port is taken). That's the only origin the backend allows by
+default.
+
 See [`AGENTS.md`](./AGENTS.md) for the stack, commands and conventions.
