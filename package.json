@@ -19,16 +19,21 @@
     "css-types": "tcm src -p \"**/*.module.css\" -s",
     "css-types:watch": "tcm src -p \"**/*.module.css\" -w",
     "css-types:check": "tcm src -p \"**/*.module.css\" -l",
+    "api:spec": "node scripts/api.mjs spec",
+    "api:generate": "node scripts/api.mjs generate",
+    "api:check": "node scripts/api.mjs check",
     "typecheck": "tsc --noEmit",
-    "check": "pnpm format:check && pnpm css-types:check && pnpm lint && pnpm typecheck && pnpm test"
+    "check": "pnpm format:check && pnpm css-types:check && pnpm api:check && pnpm lint && pnpm typecheck && pnpm test"
   },
   "dependencies": {
-    "@effect/platform-browser": "4.1.0",
+    "@effect/platform-browser": "4.1.5",
     "@foldkit/ui": "0.170.0",
-    "effect": "4.1.0",
+    "effect": "4.1.5",
     "foldkit": "0.170.0"
   },
   "devDependencies": {
+    "@effect/openapi-generator": "4.1.5",
+    "@effect/platform-node": "4.1.5",
     "@effect/tsgo": "0.50.0",
     "@foldkit/devtools": "0.170.0",
     "@foldkit/devtools-mcp": "0.26.0",

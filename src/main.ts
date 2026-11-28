@@ -1,40 +1,80 @@
-import { Schema } from 'effect'
-import { Runtime, type Update } from 'foldkit'
-import { Document, HtmlBuilder } from 'foldkit/html'
-import { defineMessageUnion } from 'foldkit/message'
+import { Effect, Match, Option, Schema } from 'effect'
+import { KeyValueStore } from 'effect/persistence'
+import { Runtime } from 'foldkit'
+import { Url } from 'foldkit/url'
 
-import styles from './main.module.css'
+import { BrowserKeyValueStore } from '@effect/platform-browser'
 
-// MODEL
+import { type Api } from './api/client'
+import { RedirectToHome, RedirectToSignIn } from './command'
+import { SESSION_STORAGE_KEY } from './constant'
+import { Session, StoredSessionJson, makeSession } from './domain/session'
+import { Message } from './message'
+import { Model, SignedIn, SignedOut } from './model'
+import { AppRoute, urlToAppRoute } from './route'
+import { type UpdateReturn, verifySession } from './update'
 
-export const Model = Schema.Struct({})
-export type Model = typeof Model.Type
+// FLAGS
 
-// MESSAGE
+export const Flags = Schema.Struct({ maybeSession: Schema.Option(Session) })
+export type Flags = typeof Flags.Type
 
-export const Message = defineMessageUnion({})
-export type Message = typeof Message.Type
-
-// UPDATE
-
-export const update = (model: Model, message: Message) =>
-  Message.match<Update.Return<Model, Message>>(message, {})
+export const flags: Effect.Effect<Flags> = Effect.gen(function* () {
+  const store = yield* KeyValueStore.KeyValueStore
+  const json = yield* Effect.fromOption(
+    Option.fromNullishOr(yield* store.get(SESSION_STORAGE_KEY)),
+  )
+  const stored = yield* Schema.decodeEffect(StoredSessionJson)(json)
+  return Flags.make({ maybeSession: Option.some(makeSession(stored)) })
+}).pipe(
+  Effect.catch(() =>
+    Effect.succeed(Flags.make({ maybeSession: Option.none() })),
+  ),
+  Effect.provide(BrowserKeyValueStore.layerLocalStorage),
+)
 
 // INIT
 
-export const init: Runtime.ApplicationInit<Model, Message> = () => ({
-  model: {},
-})
+const withInitReturn = Match.withReturnType<UpdateReturn>()
 
-// VIEW
+export const init: Runtime.RoutingApplicationInit<
+  Model,
+  Message,
+  Flags,
+  Api
+> = (flags: Flags, url: Url): UpdateReturn => {
+  const route = urlToAppRoute(url)
 
-export const view = (_model: Model, h: HtmlBuilder<Message>): Document => ({
-  title: 'Tulsi',
-  body: h.main(
-    [h.Class(styles.page)],
-    [
-      h.h1([h.Class(styles.title)], ['Tulsi']),
-      h.p([h.Class(styles.tagline)], ['Organise your Tasks.']),
-    ],
-  ),
-})
+  return Option.match(flags.maybeSession, {
+    onNone: () =>
+      Match.value(route).pipe(
+        withInitReturn,
+        Match.tag('SignIn', 'Register', 'NotFound', route => ({
+          model: SignedOut.init(route),
+        })),
+        Match.orElse(() => ({
+          model: SignedOut.init(AppRoute.SignIn()),
+          commands: [RedirectToSignIn()],
+        })),
+      ),
+
+    onSome: session =>
+      Match.value(route).pipe(
+        withInitReturn,
+        Match.tag('Home', 'NotFound', route => {
+          const signedInModel = SignedIn.init(route, session)
+          return {
+            model: signedInModel,
+            commands: verifySession(signedInModel),
+          }
+        }),
+        Match.orElse(() => {
+          const signedInModel = SignedIn.init(AppRoute.Home(), session)
+          return {
+            model: signedInModel,
+            commands: [...verifySession(signedInModel), RedirectToHome()],
+          }
+        }),
+      ),
+  })
+}

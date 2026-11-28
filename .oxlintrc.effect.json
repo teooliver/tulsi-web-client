@@ -22,5 +22,6 @@
     "effecttsgo/try-catch-in-effect-gen": "warn",
     "effecttsgo/unstable-api-usage": "off",
     "effecttsgo/unknown-in-effect-catch": "warn"
-  }
+  },
+  "ignorePatterns": ["src/api/generated.ts"]
 }
